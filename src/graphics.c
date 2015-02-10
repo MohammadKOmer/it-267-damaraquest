@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <SDL_image.h>
 #include "graphics.h"
 
 #define MaxSprites    511
@@ -26,7 +27,7 @@ void Init_Graphics(int windowed)
 			   0);
     atexit(SDL_Quit);
 	renderer = SDL_CreateRenderer(window, -1, 0);
-   
+	IMG_Init(IMG_INIT_PNG);
     SDL_ShowCursor(SDL_DISABLE);
     Camera.x = 0;
     Camera.y = 0;
@@ -80,8 +81,8 @@ Sprite *LoadSprite(char *filename,int sizex, int sizey){
 	{
 		if(!SpriteList[i].used)break;
 	}
-	image=IMG_Load(filename);
-	texture = SDL_CreateTextureFromSurface(renderer,image);
+	
+	texture = IMG_LoadTexture(renderer,filename);
 	SpriteList[i].texture = texture;
 
 	/*then copy the given information to the sprite*/
@@ -116,10 +117,10 @@ void CloseSprites()
   int i;
    for(i = 0;i < MaxSprites;i++)
    {
-     /*it shouldn't matter if the sprite is already freed, 
-     FreeSprite checks for that*/
       FreeSprite(&SpriteList[i]);
    }
+    IMG_Quit();
+
 }
 void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow)
 {
