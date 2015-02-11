@@ -111,6 +111,12 @@ void DrawEntity(Entity *ent)
     if(ent->sprite != NULL){
 
       DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR);
+	  if(ent->sprite->Animating!=0){
+		  ent->frame++;
+		  if(ent->frame > ent->sprite->curAnim.endFrame){
+			  ent->frame=ent->sprite->curAnim.initialFrame;
+		  }
+	  }
 	}
   
 }
@@ -162,6 +168,7 @@ void DamageTarget(Entity *attacker,Entity *inflictor,Entity *defender,int damage
 
 int GetFace(Entity *self)
 {
+	return 1;
 }
 
 
@@ -179,7 +186,7 @@ int OnScreen(Entity *self)
   return 0;
 }
 
-void SpawnSquare(int x,int y, int frame)
+Entity*  SpawnSquare(int x,int y, int frame)
 {
 	Entity *newent = NULL;
 	newent = NewEntity();
@@ -189,10 +196,10 @@ void SpawnSquare(int x,int y, int frame)
 		exit(0);
 	}
 	strcpy(newent->EntName,"testsprite\0");
-	newent->sprite = LoadSprite("images/TestSprite.png",256,2560);
+	newent->sprite = LoadSprite("images/TestSprite.png",256,256);
 	newent->size.x = 256;
 	newent->size.y = 256;
-
+	newent->fcount=9;
 	
 	newent->Unit_Type = ET_WorldEnt;
 
@@ -219,5 +226,19 @@ void SpawnSquare(int x,int y, int frame)
 	newent->origin.x = 128;
 	newent->origin.y = 128;
 
+}
+void SwitchAnim(Entity *ent,char *AnimName){
+	int i;
+	for(i=0;i<MaxAnimations;i++){
+		if(ent->sprite->AnimList[i].used==0){
+			printf("Could not find sprite");
+		}
+		if(strcmp(ent->sprite->AnimList[i].AnimName,AnimName)){
+			break;
+		}
+	}
+	ent->frame=ent->sprite->AnimList[i].initialFrame;
+	ent->frameR=ent->sprite->AnimList[i].row;
+	
 }
 

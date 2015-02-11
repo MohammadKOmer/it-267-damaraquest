@@ -21,8 +21,10 @@ ScreenData  S_Data;
 
 void Init_Graphics(int windowed)
 {
-	
-	 SDL_Window * window = SDL_CreateWindow("My SDL Empty Window",
+	SDL_Window * window;
+	SDL_Init(SDL_INIT_EVERYTHING);
+
+	window  = SDL_CreateWindow("My SDL Empty Window",
 				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
 			   0);
     atexit(SDL_Quit);
@@ -122,6 +124,24 @@ void CloseSprites()
     IMG_Quit();
 
 }
+void AddAnimToSprite(Sprite *sprite,int initialFrame, int endFrame, int row, char *AnimName){
+	int i;
+	Anim NewAnim;
+	for(i=0;i<MaxAnimations;i++){
+		if(sprite->AnimList[i].used==0){
+			break;
+		}
+	}
+	NewAnim.initialFrame=initialFrame;
+	NewAnim.endFrame=endFrame;
+	NewAnim.row=row;
+	NewAnim.used=1;
+
+	strncpy(NewAnim.AnimName,AnimName,20);
+	sprite->AnimList[i]=NewAnim;
+	
+}
+
 void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow)
 {
     SDL_Rect src,dest;

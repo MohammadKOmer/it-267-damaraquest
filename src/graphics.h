@@ -7,6 +7,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdio.h>
+
 /*uint32*/
 #define Red_         0xDD0000
 #define Green_       0x00DD00
@@ -49,6 +50,18 @@ enum colors {Red = 1,Green = 2,Blue = 3,Yellow = 4,Orange = 5,Violet = 6,Brown =
                LightGreen = 18,LightBlue = 19,LightYellow = 20,LightOrange = 21,LightViolet = 22,LightBrown = 23,LightGrey = 24,
                Black = 25,White = 26,Tan = 27,Gold = 28,Silver = 29,YellowGreen = 30,Cyan = 31,Magenta = 32};
 
+
+#define MaxAnimations 10
+
+
+typedef struct Anim_T
+{
+	int initialFrame,endFrame;
+	int row;
+	char AnimName[20];
+	int used;
+}Anim;
+
 typedef struct Sprite_T
 {
   SDL_Texture * texture;		/*pointer to the texture in memory*/
@@ -57,7 +70,12 @@ typedef struct Sprite_T
   int framesperline;			/*default is 16*/
   int color1,color2,color3;		/*if the file was palette swapped these are the colors that were changed*/
   int used;						/*used by the maintanenc functions to keep track of how many times a single sprite is being used*/
+  int Animating;
+  Anim AnimList[MaxAnimations];
+  Anim curAnim;
 }Sprite;
+
+
 
 typedef struct	
 {
@@ -74,6 +92,7 @@ void FreeSprite(Sprite *img);
 Sprite *LoadSprite(char *filename,int sizex, int sizey);
 void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow);
 void CloseSprites();
+void AddAnimToSprite(Sprite *sprite,int initialFrame, int endFrame, int row, char *AnimName);
 
 /*frame handling functions*/
 

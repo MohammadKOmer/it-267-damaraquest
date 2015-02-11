@@ -102,7 +102,7 @@ void DrawEntity(Entity *ent);
 void DrawEntities();
 void UpdateEntities();
 void ThinkEntities();
-
+void SwitchAnim(Entity *ent,char *AnimName);
 
 
 
@@ -141,8 +141,6 @@ void DrawBuckets();
 void AdjustOrbit(Entity *self);
 
 
-void SpawnFloor(int x,int y);
-void SpawnWall(int x,int y);
-void SpawnSquare(int x,int y, int frame);
+Entity* SpawnSquare(int x,int y, int frame);
 
 #endif
