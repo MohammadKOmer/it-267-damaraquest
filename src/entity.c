@@ -112,7 +112,7 @@ void DrawEntity(Entity *ent)
 
       DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR);
 	  if(ent->sprite->Animating!=0){
-		  ent->timeSinceLastAnim+=30;
+		  ent->timeSinceLastAnim++;
 		  if(ent->sprite->curAnim.delays[ent->curAnimIndex] < ent->timeSinceLastAnim){
 			  ent->curAnimIndex++;
 			 
@@ -197,7 +197,7 @@ int OnScreen(Entity *self)
 Entity*  SpawnSquare(int x,int y, int frame)
 {
 	int frames[4]={3,4,6,1};
-	int delays[4]={6000,6000,60,600};
+	int delays[4]={60,120,60,120};
 	
 	Entity *newent = NULL;
 	newent = NewEntity();
