@@ -36,6 +36,7 @@ void Init_Graphics(int windowed)
     Camera.w = 800;
     Camera.h = 600;
 }
+
 void NextFrame(int delay)
 {
 	Uint32 Then;
@@ -124,16 +125,23 @@ void CloseSprites()
     IMG_Quit();
 
 }
-void AddAnimToSprite(Sprite *sprite,int initialFrame, int endFrame, int row, char *AnimName){
+void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int row, char *AnimName){
 	int i;
+	int k;
 	Anim NewAnim;
 	for(i=0;i<MaxAnimations;i++){
 		if(sprite->AnimList[i].used==0){
 			break;
 		}
 	}
-	NewAnim.initialFrame=initialFrame;
-	NewAnim.endFrame=endFrame;
+	
+	
+	for(k = 0; k < length ; k++)
+	{
+		 NewAnim.frames[k]=frames[k];
+		 NewAnim.delays[k]=delays[k];
+	}
+	NewAnim.length=length;
 	NewAnim.row=row;
 	NewAnim.used=1;
 

@@ -21,18 +21,21 @@ int main( int argc, char* args[] )
 	InitSpriteList();
 	InitEntityList();
 	 test = SpawnSquare(0,0,4);
+	 SwitchAnim(test,"testing");
 	while(1)
 		{
 			
-			test->frame++;
+			/*test->frame++;
 			if(test->frame>test->fcount){
 				test->frame=0;
 			}
+			test->s.x++;
+			*/
 			
 			SDL_PumpEvents();
 			ThinkEntities();
 			DrawEntities();
-			NextFrame(60);
+			NextFrame(30);
 
 		}
 

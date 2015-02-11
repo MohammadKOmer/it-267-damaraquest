@@ -52,14 +52,16 @@ enum colors {Red = 1,Green = 2,Blue = 3,Yellow = 4,Orange = 5,Violet = 6,Brown =
 
 
 #define MaxAnimations 10
-
+#define maxAnimFrames 10
 
 typedef struct Anim_T
 {
-	int initialFrame,endFrame;
 	int row;
 	char AnimName[20];
+	int frames[maxAnimFrames];
+	int delays[maxAnimFrames];
 	int used;
+	int length;
 }Anim;
 
 typedef struct Sprite_T
@@ -77,7 +79,7 @@ typedef struct Sprite_T
 
 
 
-typedef struct	
+typedef struct	Screen_T
 {
     int xres,yres,depth;
 }ScreenData;
@@ -92,7 +94,7 @@ void FreeSprite(Sprite *img);
 Sprite *LoadSprite(char *filename,int sizex, int sizey);
 void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow);
 void CloseSprites();
-void AddAnimToSprite(Sprite *sprite,int initialFrame, int endFrame, int row, char *AnimName);
+void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int row, char *AnimName);
 
 /*frame handling functions*/
 

@@ -112,11 +112,19 @@ void DrawEntity(Entity *ent)
 
       DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR);
 	  if(ent->sprite->Animating!=0){
-		  ent->frame++;
-		  if(ent->frame > ent->sprite->curAnim.endFrame){
-			  ent->frame=ent->sprite->curAnim.initialFrame;
+		  ent->timeSinceLastAnim+=30;
+		  if(ent->sprite->curAnim.delays[ent->curAnimIndex] < ent->timeSinceLastAnim){
+			  ent->curAnimIndex++;
+			 
+			  if(ent->curAnimIndex== ent->sprite->curAnim.length){
+				
+				  ent->curAnimIndex=0;
+			  }
+			  ent->frame=ent->sprite->curAnim.frames[ent->curAnimIndex];
+			  ent->timeSinceLastAnim=0;
 		  }
 	  }
+	
 	}
   
 }
@@ -188,8 +196,12 @@ int OnScreen(Entity *self)
 
 Entity*  SpawnSquare(int x,int y, int frame)
 {
+	int frames[4]={3,4,6,1};
+	int delays[4]={6000,6000,60,600};
+	
 	Entity *newent = NULL;
 	newent = NewEntity();
+	
 	if(newent == NULL)
 	{
 		printf( "Unable to generate player entity; %s",SDL_GetError());
@@ -197,8 +209,10 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	}
 	strcpy(newent->EntName,"testsprite\0");
 	newent->sprite = LoadSprite("images/TestSprite.png",256,256);
+	newent->sprite->Animating=1;
 	newent->size.x = 256;
 	newent->size.y = 256;
+	AddAnimToSprite(newent->sprite,frames,delays,4,0,"testing");
 	newent->fcount=9;
 	
 	newent->Unit_Type = ET_WorldEnt;
@@ -233,12 +247,13 @@ void SwitchAnim(Entity *ent,char *AnimName){
 		if(ent->sprite->AnimList[i].used==0){
 			printf("Could not find sprite");
 		}
-		if(strcmp(ent->sprite->AnimList[i].AnimName,AnimName)){
+		if(strncmp(ent->sprite->AnimList[i].AnimName,AnimName,20)==0){
 			break;
 		}
 	}
-	ent->frame=ent->sprite->AnimList[i].initialFrame;
+	ent->frame=ent->sprite->AnimList[i].frames[0];
 	ent->frameR=ent->sprite->AnimList[i].row;
+	ent->sprite->curAnim=ent->sprite->AnimList[i];
 	
 }
 
