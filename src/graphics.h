@@ -43,7 +43,7 @@
 #define Magenta_     0xFF00FF
 
 extern SDL_Rect Camera;
-
+extern SDL_Renderer * renderer;
 /*color constants:*/
 enum colors {Red = 1,Green = 2,Blue = 3,Yellow = 4,Orange = 5,Violet = 6,Brown = 7,Grey = 8,DarkRed = 9,DarkGreen = 10,
                DarkBlue = 11,DarkYellow = 12,DarkOrange = 13,DarkViolet = 14,DarkBrown = 15,DarkGrey = 16,LightRed =17,
@@ -103,13 +103,5 @@ void FrameDelay(Uint32 delay);
 void ResetBuffer();
 void NextFrame(int delay);
 
-/*font stuff*/
-void LoadFonts();
-void LoadFont(char filename[40],int ptsize,int type);
-void DrawText(char *text,SDL_Surface *surface,int sx,int sy,Uint32 color,int size);
-void DrawTextCentered(char *text,SDL_Surface *surface,int sx,int sy,Uint32 color,int size);
-void DrawMessages();
-void InitMessages();
-void NewMessage(char *text,Uint32 color);
 
 #endif

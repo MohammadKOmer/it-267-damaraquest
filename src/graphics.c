@@ -23,7 +23,7 @@ void Init_Graphics(int windowed)
 {
 	SDL_Window * window;
 	SDL_Init(SDL_INIT_EVERYTHING);
-
+	
 	window  = SDL_CreateWindow("My SDL Empty Window",
 				SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
 			   0);
