@@ -82,7 +82,7 @@ typedef struct Entity_T
 
 	int dtype;                /*what type of Damage I will inflict*/
 	int lifetime;			  /*Used for lightsaber only in the midterm build*/
-	int timeSinceLastAnim,curAnimIndex;
+	int timeSinceLastAnim,curAnimIndex,drawScale;
 	/*               armor and health                 */
 
 	int health,healthmax;     /*everything will need health.  Resources will use it for how much of a resource it has left*/

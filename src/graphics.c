@@ -125,7 +125,7 @@ void CloseSprites()
     IMG_Quit();
 
 }
-void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int row, char *AnimName){
+void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int scales[],int length, int row, char *AnimName){
 	int i;
 	int k;
 	Anim NewAnim;
@@ -140,6 +140,7 @@ void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int ro
 	{
 		 NewAnim.frames[k]=frames[k];
 		 NewAnim.delays[k]=delays[k];
+		 NewAnim.scales[k]=scales[k];
 	}
 	NewAnim.length=length;
 	NewAnim.row=row;
@@ -150,7 +151,7 @@ void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int ro
 	
 }
 
-void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow)
+void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow,int scale)
 {
     SDL_Rect src,dest;
     src.x = frame* sprite->w;
@@ -159,8 +160,8 @@ void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow)
     src.h = sprite->h;
     dest.x = sx;
     dest.y = sy;
-    dest.w = sprite->w;
-    dest.h = sprite->h;
+    dest.w = sprite->w*scale;
+    dest.h = sprite->h*scale;
 	SDL_RenderCopy(renderer, sprite->texture, &src, &dest); 
 
    /* SDL_BlitSurface(sprite->image, &src, surface, &dest);*/

@@ -60,6 +60,7 @@ typedef struct Anim_T
 	char AnimName[20];
 	int frames[maxAnimFrames];
 	int delays[maxAnimFrames];
+	int scales[maxAnimFrames];
 	int used;
 	int length;
 }Anim;
@@ -92,9 +93,9 @@ void Init_Graphics(int windowed);
 void InitSpriteList();
 void FreeSprite(Sprite *img);
 Sprite *LoadSprite(char *filename,int sizex, int sizey);
-void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow);
+void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow,int scale);
 void CloseSprites();
-void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int length, int row, char *AnimName);
+void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int scales[],int length, int row, char *AnimName);
 
 /*frame handling functions*/
 

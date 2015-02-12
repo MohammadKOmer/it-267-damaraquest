@@ -110,7 +110,7 @@ void DrawEntity(Entity *ent)
 
     if(ent->sprite != NULL){
 
-      DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR);
+		DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR,ent->drawScale);
 	  if(ent->sprite->Animating!=0){
 		  ent->timeSinceLastAnim++;
 		  if(ent->sprite->curAnim.delays[ent->curAnimIndex] < ent->timeSinceLastAnim){
@@ -121,6 +121,7 @@ void DrawEntity(Entity *ent)
 				  ent->curAnimIndex=0;
 			  }
 			  ent->frame=ent->sprite->curAnim.frames[ent->curAnimIndex];
+			   ent->drawScale=ent->sprite->curAnim.scales[ent->curAnimIndex];
 			  ent->timeSinceLastAnim=0;
 		  }
 	  }
@@ -198,7 +199,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 {
 	int frames[4]={3,4,6,1};
 	int delays[4]={60,120,60,120};
-	
+	int scales[4]={1,2,2,1};
 	Entity *newent = NULL;
 	newent = NewEntity();
 	
@@ -212,7 +213,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	newent->sprite->Animating=1;
 	newent->size.x = 256;
 	newent->size.y = 256;
-	AddAnimToSprite(newent->sprite,frames,delays,4,0,"testing");
+	AddAnimToSprite(newent->sprite,frames,delays,scales,4,0,"testing");
 	newent->fcount=9;
 	
 	newent->Unit_Type = ET_WorldEnt;
