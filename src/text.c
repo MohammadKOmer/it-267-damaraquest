@@ -16,7 +16,7 @@ void Init_Text(){
 		exit(2);
 	}
 	cour;
-	cour=TTF_OpenFont("font/courbd.ttf", 16);
+	cour=TTF_OpenFont("fonts/courbd.ttf", 24);
 	if(!cour) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		// handle error
