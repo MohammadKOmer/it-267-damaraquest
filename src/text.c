@@ -74,6 +74,12 @@ void DrawAllText(){
 	
 }
 
-
-
-
+void RemoveText(char *removingText){
+	int i;
+	for(i=0;i<MAXTEXTS;i++){
+		
+		if(strcmp(TextList[i].text,removingText)==0){
+			TextList[i].used=0;
+		}
+	}
+}

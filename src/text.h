@@ -17,6 +17,6 @@ extern TTF_Font *cour;
 void Init_Text();
 GameText* AddText(char *text,int x, int y,SDL_Color textColor,int length);
 void DrawAllText();
-
+void RemoveText(char *removingText);
 
 #endif

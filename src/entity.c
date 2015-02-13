@@ -242,6 +242,30 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	newent->origin.y = 128;
 
 }
+Entity*  SpawnImage(int x,int y, int w, int h, char* file)
+{
+	
+	Entity *newent = NULL;
+	newent = NewEntity();
+	
+	if(newent == NULL)
+	{
+		printf( "Unable to generate player entity; %s",SDL_GetError());
+		exit(0);
+	}
+	strcpy(newent->EntName,file);
+	newent->sprite = LoadSprite(file,w,h);
+	newent->sprite->Animating=0;
+	newent->size.x = w;
+	newent->size.y = h;
+	newent->fcount=1;
+	newent->drawScale=1;
+	newent->s.x = x;
+	newent->s.y = y;
+	newent->origin.x = 128;
+	newent->origin.y = 128;
+
+}
 void SwitchAnim(Entity *ent,char *AnimName){
 	int i;
 	for(i=0;i<MaxAnimations;i++){

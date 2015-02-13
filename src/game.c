@@ -21,9 +21,12 @@ int main( int argc, char* args[] )
 	InitSpriteList();
 	InitEntityList();
 	Init_Text();
-	 test = SpawnSquare(0,0,4);
+	/* test = SpawnSquare(0,0,4);
 	 
-	 SwitchAnim(test,"testing");
+	 SwitchAnim(test,"testing");*/
+	 AddText("Start",500,200,color,100);
+	SpawnImage(0,0,143,241,"Images/Damara_talksprite.png");
+	 AddText("Quit",500,300,color,100);
 	while(1)
 		{
 			
@@ -34,7 +37,7 @@ int main( int argc, char* args[] )
 			test->s.x++;
 			*/
 			
-			AddText("Hello World",200,200,color,100);
+			
 			SDL_PumpEvents();
 			ThinkEntities();
 			DrawEntities();
