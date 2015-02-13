@@ -142,6 +142,6 @@ void AdjustOrbit(Entity *self);
 
 
 Entity* SpawnSquare(int x,int y, int frame);
-Entity*  SpawnImage(int x,int y, int w, int h, char* file);
+Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file);
 
 #endif

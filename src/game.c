@@ -24,18 +24,13 @@ int main( int argc, char* args[] )
 	/* test = SpawnSquare(0,0,4);
 	 
 	 SwitchAnim(test,"testing");*/
-	 AddText("Start",500,200,color,100);
-	SpawnImage(0,0,143,241,"Images/Damara_talksprite.png");
-	 AddText("Quit",500,300,color,100);
+	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
+	 AddText("Start",500,300,color,100);
+	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
+	 AddText("Quit",500,350,color,100);
 	while(1)
 		{
 			
-			/*test->frame++;
-			if(test->frame>test->fcount){
-				test->frame=0;
-			}
-			test->s.x++;
-			*/
 			
 			
 			SDL_PumpEvents();

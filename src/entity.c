@@ -242,7 +242,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	newent->origin.y = 128;
 
 }
-Entity*  SpawnImage(int x,int y, int w, int h, char* file)
+Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file)
 {
 	
 	Entity *newent = NULL;
@@ -259,7 +259,7 @@ Entity*  SpawnImage(int x,int y, int w, int h, char* file)
 	newent->size.x = w;
 	newent->size.y = h;
 	newent->fcount=1;
-	newent->drawScale=1;
+	newent->drawScale=scale;
 	newent->s.x = x;
 	newent->s.y = y;
 	newent->origin.x = 128;
