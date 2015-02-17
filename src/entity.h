@@ -1,7 +1,7 @@
 #ifndef _ENTITY_
 #define _ENTITY_
 #include "graphics.h"
-
+#include "sprite.h"
 
 #define MAXENTITIES   1024
 #define MAXSTATES     10
@@ -52,8 +52,6 @@ typedef struct Entity_T
 	Uint32 NextUpdate;        /*used for how often the entity is updated, updating is merely animations*/
 	Uint16 UpdateRate;        /*used for incrementing above*/
 	
-
-	int Color;                /*the index color for bullets and trails and such*/
 	int shown;                /*if 1 then it will be rendered when it is on screen*/
 	int frame;                /*current frame to render*/
 	int fcount;               /*used for animation, the loop variable*/
@@ -76,7 +74,7 @@ typedef struct Entity_T
 	int ordercount;           /*AI use counting variable*/
 
 
-	int sightrange;           /*how big my sigh radius is for detection of the player*/
+	int sightrange;           /*how big my sight radius is for detection of the player*/
 
 	int damage;               /*how much damage I can inflict for things that can deal damage*/
 
@@ -127,18 +125,7 @@ int GetFace(Entity *self);
 
 void UpdateEntityPosition(Entity *self);
 int DistanceBetween(Entity *self, Entity *target);/*returns the diference between two entities.*/
-int AimAtTarget(Entity *self,Entity *target);
 
-/*collision detection functions*/
-int TraceHit(float sx, float sy, float vx, float vy, float *fx, float *fy);
-void InitRegionMask(int sizex,int sizey); /*based on size of map*/
-void ClearRegionMask();   /*de-allocate all allocated memory*/
-Entity *GetEntByBox(SDL_Rect bbox,int rx,int ry,Entity *ignore,int ETMask);
-Entity *GetNextEntByBox(SDL_Rect bbox,int rx,int ry,Entity *start,int ETMask);
-int AddEntToRegion(Entity *ent,int rx,int ry);
-void RemoveEntFromRegion(Entity *ent,int rx,int ry);
-void DrawBuckets();
-void AdjustOrbit(Entity *self);
 
 
 Entity* SpawnSquare(int x,int y, int frame);

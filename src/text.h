@@ -1,5 +1,6 @@
 #ifndef _TEXT_
 #define _TEXT_
+
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 typedef struct Text_Object
