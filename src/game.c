@@ -19,7 +19,7 @@ const int SCREEN_HEIGHT = 640;
 int main( int argc, char* args[] )
 {
 	Entity* test;
-	SDL_Color color={0xFF,0xFF,0,0};
+	
     Init_Graphics(0);
 	InitSpriteList();
 	InitEntityList();
@@ -29,9 +29,9 @@ int main( int argc, char* args[] )
 	 
 	 SwitchAnim(test,"testing");*/
 	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
-	 AddText("Start",500,300,color,100);
+	 AddText("Start",500,300,Yellow,100);
 	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
-	 AddText("Quit",500,350,color,100);
+	 AddText("Quit",500,350,Yellow,100);
 	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 	while(1)
 		{

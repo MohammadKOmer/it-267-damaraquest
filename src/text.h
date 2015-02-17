@@ -3,6 +3,14 @@
 
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+
+extern SDL_Color Yellow;
+extern SDL_Color Damara;
+extern SDL_Color Kanaya;
+extern SDL_Color Rose;
+extern SDL_Color Latula;
+extern SDL_Color White;
+
 typedef struct Text_Object
 {
 	char *text;

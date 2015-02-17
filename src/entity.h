@@ -103,30 +103,14 @@ void ThinkEntities();
 void SwitchAnim(Entity *ent,char *AnimName);
 
 
-
-
 /*generic entity support functions*/
 int OnScreen(Entity *self);
 void DamageTarget(Entity *attacker,Entity *inflictor,Entity *defender,int damage,int dtype,float kick,float kickx,float kicky);
-void DamageRadius(Entity *attacker,Entity *inflictor,int damage,int radius,int dtype,float kick);
-Entity *GetClosestEntity(Entity *self,int rx,int ry,int depth);
-Entity *GetNextEntByRad(Entity *self,int radius,int rx,int ry,Entity *start,int ETMask);
-int MoveUnit(Entity *self);
-int GetNextCount(Entity *self);
-void  VectorScaleTo(int magnitude, float *xdir,float *ydir);
-void ScaleVectors(float *vx, float *vy);
-int VectorLength(float vx,float vy);    /*only useful for integer comparisons, bu faster than float answer*/
-int Collide(Entity *ent1,Entity *ent2);/*returns 1 if the two entities are clipping*/
-
 
 int GetFace(Entity *self);
 
-
-
 void UpdateEntityPosition(Entity *self);
 int DistanceBetween(Entity *self, Entity *target);/*returns the diference between two entities.*/
-
-
 
 Entity* SpawnSquare(int x,int y, int frame);
 Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file);

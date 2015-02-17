@@ -2,6 +2,15 @@
 #include "text.h"
 #include "graphics.h"
 
+ SDL_Color Yellow={0xFF,0xFF,0,0};
+ SDL_Color Damara={0xa1,0,0,0};
+ SDL_Color Kanaya={0,0x81,0x41,0};
+ SDL_Color Rose={0xb5,0x36,0xda,0};
+ SDL_Color Latula={0,0x82,0x82,0};
+ SDL_Color White={0xFF,0xFF,0xFF,0};
+
+
+
 #define MAXTEXTS  32
 
 TTF_Font *cour;
