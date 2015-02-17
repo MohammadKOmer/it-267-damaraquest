@@ -1,8 +1,11 @@
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include "graphics.h"
 #include "entity.h"
 #include "text.h"
+#include "sound.h"
+
 
 
 extern SDL_Renderer * renderer;
@@ -21,6 +24,7 @@ int main( int argc, char* args[] )
 	InitSpriteList();
 	InitEntityList();
 	Init_Text();
+	InitSound();
 	/* test = SpawnSquare(0,0,4);
 	 
 	 SwitchAnim(test,"testing");*/
@@ -28,6 +32,7 @@ int main( int argc, char* args[] )
 	 AddText("Start",500,300,color,100);
 	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
 	 AddText("Quit",500,350,color,100);
+	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 	while(1)
 		{
 			
