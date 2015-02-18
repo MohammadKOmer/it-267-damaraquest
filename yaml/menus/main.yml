@@ -1,0 +1,5 @@
+#MainMenu
+Start	:	C_StartGame
+Continue	:	menu/continue
+Quit	:	C_QuitGame
+

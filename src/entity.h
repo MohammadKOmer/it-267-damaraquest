@@ -65,7 +65,7 @@ typedef struct Entity_T
 
 	
 	Point s;                  /*screen coordinates*/
-	
+
 	Point m;                  /*Map coordinate*/
 	Point size;               /*mirrors the sprite width and height*/
 	Point origin;             /*offset of the center from s*/
