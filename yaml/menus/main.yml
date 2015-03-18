@@ -1,4 +1,4 @@
 Start	:	C_StartGame
-- args	:	test,success,1,2,3
+args	:	test,success,1,2,3
 Continue	:	menu/continue
 Quit	:	C_QuitGame

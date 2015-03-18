@@ -7,8 +7,8 @@
 #include "text.h"
 #define MAXOPTIONS   16
 typedef struct KeyVal{
-	GString keyScaler;
-	GString valScaler;
+	GString* keyScaler;
+	GString* valScaler;
 }KeyValue;
 typedef struct Menu_Option
 {
@@ -26,5 +26,6 @@ KeyValue makeKeyVal(char* ln);
 /*callback functions*/
 void StartGame(char* args);
 void GoToFile(char* args);
-Menu* readFile(char* fileName);
+void readFile(char* fileName);
+Menu* makeMenuFromFile(char* fileName, int x, int y, int spacing);
 #endif

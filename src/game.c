@@ -30,6 +30,7 @@ int main( int argc, char* args[] )
 	 SwitchAnim(test,"testing");*/
 	
 	readFile("yaml/menus/main.yml");
+	makeMenuFromFile("yaml/menus/main.yml",500,100,50);
 	printf("-----------\n");
 	//createMenu(500,300,200,50,"yaml/menus/main.yml");
 	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
