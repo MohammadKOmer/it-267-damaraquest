@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <stdio.h>
-#include <yaml.h>
+
 
 #include "graphics.h"
 #include "entity.h"
@@ -20,8 +20,6 @@ const int SCREEN_HEIGHT = 640;
 
 int main( int argc, char* args[] )
 {
-	Entity* test;
-	yaml_parser_t parser;
     Init_Graphics(0);
 	InitSpriteList();
 	InitEntityList();
@@ -30,11 +28,14 @@ int main( int argc, char* args[] )
 	/* test = SpawnSquare(0,0,4);
 	 
 	 SwitchAnim(test,"testing");*/
-	displayMenu(0,0,200,"yaml/menus/main.yml");
+	
+	readFile("yaml/menus/main.yml");
+	printf("-----------\n");
+	//createMenu(500,300,200,50,"yaml/menus/main.yml");
 	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
-	 AddText("Start",500,300,Yellow,100);
+	
 	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
-	 AddText("Quit",500,350,Yellow,100);
+	
 	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 	while(1)
 		{

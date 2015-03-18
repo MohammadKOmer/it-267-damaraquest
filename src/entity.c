@@ -240,6 +240,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	newent->Boundingbox.h = 256;  
 	newent->origin.x = 128;
 	newent->origin.y = 128;
+	return newent;
 
 }
 Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file)
@@ -264,6 +265,7 @@ Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file)
 	newent->s.y = y;
 	newent->origin.x = 128;
 	newent->origin.y = 128;
+	return newent;
 
 }
 void SwitchAnim(Entity *ent,char *AnimName){
@@ -279,6 +281,7 @@ void SwitchAnim(Entity *ent,char *AnimName){
 	ent->frame=ent->sprite->AnimList[i].frames[0];
 	ent->frameR=ent->sprite->AnimList[i].row;
 	ent->sprite->curAnim=ent->sprite->AnimList[i];
+	
 	
 }
 

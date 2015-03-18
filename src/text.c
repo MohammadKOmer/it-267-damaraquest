@@ -34,7 +34,7 @@ void Init_Text(){
 	
 	for(i = 0;i < MAXTEXTS; i++)
 	{
-		TextList[i].text=NULL;
+		
 		TextList[i].texture=NULL;
 		TextList[i].used=0;
 		TextList[i].x=0;
@@ -44,7 +44,7 @@ void Init_Text(){
 	
 
 }
-GameText* AddText(char *text,int x, int y,SDL_Color textColor,int length){
+GameText* AddText(GString text,int x, int y,SDL_Color textColor,int length){
 	
 	int i;
 	for(i = 0;i < MAXTEXTS; i++)
@@ -53,11 +53,12 @@ GameText* AddText(char *text,int x, int y,SDL_Color textColor,int length){
 			break;
 		}
 	}
-	TextList[i].text=text;
-	TextList[i].texture=SDL_CreateTextureFromSurface(renderer,TTF_RenderText_Blended_Wrapped(cour,text,textColor,length));
+	g_string_assign (&TextList[i].text,(gchar*)&text);
+	TextList[i].texture=SDL_CreateTextureFromSurface(renderer,TTF_RenderText_Blended_Wrapped(cour,(char*)&text,textColor,length));
 	TextList[i].used=1;
 	TextList[i].x=x;
 	TextList[i].y=y;
+	return &TextList[i];
 }
 
 void DrawAllText(){
@@ -87,7 +88,7 @@ void RemoveText(char *removingText){
 	int i;
 	for(i=0;i<MAXTEXTS;i++){
 		
-		if(strcmp(TextList[i].text,removingText)==0){
+		if(g_string_equal (&TextList[i].text,g_string_new(removingText))){
 			TextList[i].used=0;
 		}
 	}

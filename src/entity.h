@@ -48,7 +48,7 @@ typedef struct Entity_T
 	void (*think) (struct Entity_T *self);    /*called by the engine every so often to handle input and make decisions*/
 	void (*update) (struct Entity_T *self);   /*called by the engine every so often to update the position and check for collisions*/
 	Uint32 NextThink;         /*used for how often the entity thinks*/
-	Uint16 ThinkRate;         /*used for incrementing above*/
+	Uint16 ThinkRate;        /*used for incrementing above*/
 	Uint32 NextUpdate;        /*used for how often the entity is updated, updating is merely animations*/
 	Uint16 UpdateRate;        /*used for incrementing above*/
 	
