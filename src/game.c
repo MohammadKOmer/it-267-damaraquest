@@ -27,9 +27,9 @@ int main( int argc, char* args[] )
 	InitSound();
 	/* test = SpawnSquare(0,0,4);
 	 
-	 SwitchAnim(test,"testing");*/
+	 SwitchAnim(test,"testing");
 	
-	readFile("yaml/menus/main.yml");
+	readFile("yaml/menus/main.yml");*/
 	makeMenuFromFile("yaml/menus/main.yml",500,100,50);
 	printf("-----------\n");
 	//createMenu(500,300,200,50,"yaml/menus/main.yml");
@@ -40,15 +40,14 @@ int main( int argc, char* args[] )
 	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 	while(1)
 		{
-			
-			
+			NextFrame(30);
+
 			
 			SDL_PumpEvents();
 			ThinkEntities();
 			DrawEntities();
 			DrawAllText();
-			NextFrame(30);
-
+			SDL_RenderPresent(renderer);
 		}
 
 	ClearEntities();

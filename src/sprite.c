@@ -17,7 +17,7 @@ void InitSpriteList()
 }
 
 /*Create a sprite from a file, the most common use for it.*/
-Sprite *LoadSprite(char *filename,int sizex, int sizey){
+Sprite *LoadSprite(char *filename,int sizex, int sizey, int layer){
 	SDL_Surface *image;
 	SDL_Texture * texture;
 	int i;
@@ -51,6 +51,7 @@ Sprite *LoadSprite(char *filename,int sizex, int sizey){
 	SpriteList[i].framesperline = 16;
 	SpriteList[i].w = sizex;
 	SpriteList[i].h = sizey;
+	SpriteList[i].layer=layer;
 	SpriteList[i].used++;
 	return &SpriteList[i];
 }

@@ -57,6 +57,7 @@ Menu* makeMenuFromFile(char* fileName, int x, int y, int spacing){
 		newMenu->Options[i].Text=AddText(*KV.keyScaler,x,y+spacing*i,White,KV.keyScaler->len);
 		i++;
 	}
+	newMenu->activeOption=0;
 	return newMenu;
 }
 

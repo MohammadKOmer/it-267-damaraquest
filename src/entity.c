@@ -41,18 +41,25 @@ void InitEntityList()
 
 void DrawEntities()
 {
-	int i;
-	for(i = 0;i < MAXENTITIES;i++)
-	{
-		if(EntityList[i].used == 1)
+	int i=0,k=0;
+	for( k =0; k<10;k++){
+		for(i = 0;i < MAXENTITIES;i++)
 		{
-			if(((EntityList[i].s.x + EntityList[i].size.x) >= Camera.x - 200)&&(EntityList[i].s.x <= (Camera.x + Camera.w + 200))&&((EntityList[i].s.y + EntityList[i].size.y) >= Camera.y - 200)&&(EntityList[i].s.y <= (Camera.y + Camera.h) + 200))
+			if(EntityList[i].used == 1)
 			{
-				DrawEntity(&EntityList[i]);
+				if(((EntityList[i].s.x + EntityList[i].size.x) >= Camera.x - 200)&&(EntityList[i].s.x <= (Camera.x + Camera.w + 200))&&((EntityList[i].s.y + EntityList[i].size.y) >= Camera.y - 200)&&(EntityList[i].s.y <= (Camera.y + Camera.h) + 200))
+				{
+					if(!EntityList[i].sprite){
+						continue;
+					}
+					if(EntityList[i].sprite->layer==k){
+						DrawEntity(&EntityList[i]);
+					}
+				}
 			}
 		}
 	}
-	SDL_RenderPresent(renderer);
+	
 }
 
 
@@ -209,7 +216,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 		exit(0);
 	}
 	strcpy(newent->EntName,"testsprite\0");
-	newent->sprite = LoadSprite("images/TestSprite.png",256,256);
+	newent->sprite = LoadSprite("images/TestSprite.png",256,256,8);
 	newent->sprite->Animating=1;
 	newent->size.x = 256;
 	newent->size.y = 256;
@@ -255,7 +262,7 @@ Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file)
 		exit(0);
 	}
 	strcpy(newent->EntName,file);
-	newent->sprite = LoadSprite(file,w,h);
+	newent->sprite = LoadSprite(file,w,h,4);
 	newent->sprite->Animating=0;
 	newent->size.x = w;
 	newent->size.y = h;

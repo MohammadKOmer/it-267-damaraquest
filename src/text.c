@@ -11,7 +11,7 @@
 
 
 
-#define MAXTEXTS  32
+#define MAXTEXTS  128
 
 TTF_Font *cour;
 GameText TextList[MAXTEXTS];

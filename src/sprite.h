@@ -27,11 +27,12 @@ typedef struct Sprite_T
   int Animating;
   Anim AnimList[MaxAnimations];
   Anim curAnim;
+  int layer;
 }Sprite;
 /*sprite functions*/
 void InitSpriteList();
 void FreeSprite(Sprite *img);
-Sprite *LoadSprite(char *filename,int sizex, int sizey);
+Sprite *LoadSprite(char *filename,int sizex, int sizey, int layer);
 void DrawSprite(Sprite *sprite,int sx,int sy, int frame, int frow,int scale);
 void CloseSprites();
 void AddAnimToSprite(Sprite *sprite,int frames[],int delays[],int scales[],int length, int row, char *AnimName);

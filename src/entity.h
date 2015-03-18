@@ -42,7 +42,6 @@ typedef struct Entity_T
 	char EntName[40];         /*the name of the entity*/
 	Sprite *sprite;           /*the sprite for the main part of the entity*/
 
-
 	struct Entity_T *owner;   /*for bullets, drones and other things spawned by other entities*/
 	struct Entity_T *target;  /*used so that the stormtroppers and sith know what they are aiming at*/
 	void (*think) (struct Entity_T *self);    /*called by the engine every so often to handle input and make decisions*/
