@@ -91,4 +91,13 @@ void MoveToPreviousOption(Menu* m){
 	RemoveText(m->Options[m->activeOption].Text);
 	m->Options[m->activeOption].Text=AddText(m->Options[m->activeOption].Text->text,m->Options[m->activeOption].Text->x,m->Options[m->activeOption].Text->y,Yellow,m->Options[m->activeOption].Text->text.len);
 }
+void KillMenu(Menu* m){
+	int i=0;
+	for(i=0;i<m->numOpts;i++){
+		if(m->Options[i].Text){
+			RemoveText(m->Options[i].Text);
+		}
+	}
+	free(m);
+}
 
