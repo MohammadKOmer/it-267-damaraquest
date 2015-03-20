@@ -28,6 +28,6 @@ extern TTF_Font *cour;
 void Init_Text();
 GameText* AddText(GString text,int x, int y,SDL_Color textColor,int length);
 void DrawAllText();
-void RemoveText(char *removingText);
+void RemoveText(GameText* text);
 
 #endif

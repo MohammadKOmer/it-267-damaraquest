@@ -30,6 +30,6 @@ void Init_Graphics(int windowed);
 void FrameDelay(Uint32 delay);
 void ResetBuffer();
 void NextFrame(int delay);
-
+void EndGame(char* args);
 
 #endif

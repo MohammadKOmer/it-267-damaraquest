@@ -54,8 +54,9 @@ GameText* AddText(GString text,int x, int y,SDL_Color textColor,int length){
 		}
 	}
 	TextList[i].text=text;
+
 	TextList[i].texture=SDL_CreateTextureFromSurface(renderer,TTF_RenderText_Blended_Wrapped(cour,(char*)g_strchomp (text.str),textColor,length));
-	fprintf(stdout,"Menu option is %s.\n.......\n",(char*)g_strchomp (text.str));
+	//fprintf(stdout,"Menu option is %s.\n.......\n",(char*)g_strchomp (text.str));
 	TextList[i].used=1;
 	TextList[i].x=x;
 	TextList[i].y=y;
@@ -85,12 +86,13 @@ void DrawAllText(){
 	
 }
 
-void RemoveText(char *removingText){
-	int i;
-	for(i=0;i<MAXTEXTS;i++){
-		
-		if(g_string_equal (&TextList[i].text,g_string_new(removingText))){
-			TextList[i].used=0;
-		}
+void RemoveText(GameText* text){
+
+	text->used=0;
+	if(text->texture){
+		SDL_DestroyTexture(text->texture);
+		text->texture=NULL;
 	}
+
+
 }

@@ -28,4 +28,6 @@ void StartGame(char* args);
 void GoToFile(char* args);
 void readFile(char* fileName);
 Menu* makeMenuFromFile(char* fileName, int x, int y, int spacing);
+void MoveToNextOption(Menu* m);
+void MoveToPreviousOption(Menu* m);
 #endif

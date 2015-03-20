@@ -20,6 +20,7 @@ const int SCREEN_HEIGHT = 640;
 
 int main( int argc, char* args[] )
 {
+	Menu *Active;
     Init_Graphics(0);
 	InitSpriteList();
 	InitEntityList();
@@ -30,7 +31,7 @@ int main( int argc, char* args[] )
 	 SwitchAnim(test,"testing");
 	
 	readFile("yaml/menus/main.yml");*/
-	makeMenuFromFile("yaml/menus/main.yml",500,100,50);
+	Active =makeMenuFromFile("yaml/menus/main.yml",500,100,50);
 	printf("-----------\n");
 	//createMenu(500,300,200,50,"yaml/menus/main.yml");
 	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
@@ -40,11 +41,11 @@ int main( int argc, char* args[] )
 	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 	while(1)
 		{
-			NextFrame(30);
-
 			
+			NextFrame(30);
 			SDL_PumpEvents();
 			ThinkEntities();
+			MoveToNextOption(Active);
 			DrawEntities();
 			DrawAllText();
 			SDL_RenderPresent(renderer);

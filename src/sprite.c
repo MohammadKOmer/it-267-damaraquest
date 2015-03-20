@@ -67,7 +67,9 @@ void FreeSprite(Sprite *sprite)
   {
   strcpy(sprite->filename,"\0");
      /*just to be anal retentive, check to see if the image is already freed*/
-  if(sprite->texture != NULL)SDL_DestroyTexture(sprite->texture);
+  if(sprite->texture != NULL){
+	  SDL_DestroyTexture(sprite->texture);
+  }
   sprite->texture = NULL;
   }
  /*and then lets make sure we don't leave any potential seg faults 
