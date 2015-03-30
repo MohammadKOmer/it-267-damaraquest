@@ -1,4 +1,7 @@
-Start	:	C_StartGame
-args	:	test,success,1,2,3
-Continue	:	menu/continue
-Quit	:	C_QuitGame
+Start:C_StartGame
+args:test,success,1,2,3
+Continue:menu/continue
+Dialogue:C_DialogueTest|dailogue/test
+Map:C_MapTest
+Combat:C_CombatTest
+Quit:C_QuitGame

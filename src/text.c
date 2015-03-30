@@ -55,7 +55,7 @@ GameText* AddText(GString text,int x, int y,SDL_Color textColor,int length){
 	}
 	TextList[i].text=text;
 
-	TextList[i].texture=SDL_CreateTextureFromSurface(renderer,TTF_RenderText_Blended_Wrapped(cour,(char*)g_strchomp (text.str),textColor,length));
+	TextList[i].texture=SDL_CreateTextureFromSurface(renderer,TTF_RenderText_Blended_Wrapped(cour,(char*)g_strchomp (text.str),textColor,400));
 	//fprintf(stdout,"Menu option is %s.\n.......\n",(char*)g_strchomp (text.str));
 	TextList[i].used=1;
 	TextList[i].x=x;

@@ -13,8 +13,8 @@ typedef struct KeyVal{
 typedef struct Menu_Option
 {
 	GameText* Text;
-	void (*callback) (char* args);  
-	GString args;
+	void (*callback) (GString* args);  
+	GString* args;
 }Option;
 
 typedef struct Menu_Object{
@@ -22,11 +22,11 @@ typedef struct Menu_Object{
 	int activeOption;
 	int numOpts;
 }Menu;
-KeyValue makeKeyVal(char* ln);
+KeyVal makeKeyVal(char* ln, char delim);
 /*callback functions*/
-void StartGame(char* args);
-void GoToFile(char* args);
-void readFile(char* fileName);
+void StartGame(GString* args);
+void GoToFile(GString* args);
+void readFile(GString* fileName);
 Menu* makeMenuFromFile(char* fileName, int x, int y, int spacing);
 void MoveToNextOption(Menu* m);
 void MoveToPreviousOption(Menu* m);
