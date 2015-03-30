@@ -10,6 +10,7 @@ extern int timeTillNextDialogueInput;
 Dialogue* makeDialogueFromFile(char* fileName){
 	Dialogue* head;
 	Dialogue* node;
+	Dialogue* tail;
 	KeyVal KV;
 	FILE *f;
 	char ln[100];
@@ -22,9 +23,10 @@ Dialogue* makeDialogueFromFile(char* fileName){
 		return NULL;
 	}
 	timeTillNextDialogueInput=SDL_GetTicks()+300;
+	node = (Dialogue*)malloc(sizeof(Dialogue));
 	while(fgets(ln,1000,f)){
 
-		node = (Dialogue*)malloc(sizeof(Dialogue));
+		
 		if(i==0){
 			head=node;
 			i=1;
@@ -51,10 +53,16 @@ Dialogue* makeDialogueFromFile(char* fileName){
 			node->Text=*KV.valScaler;
 			node->fileName = *g_string_new("Images/Latula_talksprite.png");
 			node->color=Latula;
+		}else{
+			node=NULL;
+			break;
 		}
-		node->next=NULL;	
+		tail=node;
+		node->next=(Dialogue*)malloc(sizeof(Dialogue));
 		node=node->next;
 	}
+	
+	tail->next=NULL;
 	return head;
 }
 Dialogue* DisplayDialogue(Dialogue* d){
@@ -97,6 +105,7 @@ Dialogue* DisplayDialogue(Dialogue* d){
 			}else{
 				d->dilogueBox[iter]->frameR=1;
 			}
+			iter++;
 		}
 	}
 	d->dilogueBoxes=iter;
@@ -119,7 +128,6 @@ void freeDialogue(Dialogue* d){
 	}
 	FreeEntity(d->sprite);
 	RemoveText(d->GText);
-	free(&d->dilogueBoxes);
 	d=NULL;
 
 }

@@ -7,6 +7,8 @@ extern int state;
 extern int lastState;
 extern Menu *Active;
 extern Dialogue *ActiveDia;
+extern int timeTillNextDialogueInput;
+
 void StartGame(GString* args){
 		
 }
@@ -20,10 +22,12 @@ void CombatTest(GString* args){
 	
 }
 void DialogueTest(GString* args){
-	Dialogue *d;
-	lastState=state;
-	d=makeDialogueFromFile("yaml/menus/TestDia.txt");
-	ActiveDia=DisplayDialogue(d);
+	if(timeTillNextDialogueInput<SDL_GetTicks()){
+		Dialogue *d;
+		lastState=state;
+		d=makeDialogueFromFile("yaml/menus/TestDia.txt");
+		ActiveDia=DisplayDialogue(d);
+	}
 	
 }
 void EndGame(GString* args){
@@ -56,7 +60,6 @@ void readFile(char* fileName){
 		return ;
 	}
 	while(fgets(ln,100,f)){
-		
 		KV=makeKeyVal(ln,':');
 		g_print ("Key is %s, Value is %s \n",KV.keyScaler->str,KV.valScaler->str);
 	}
