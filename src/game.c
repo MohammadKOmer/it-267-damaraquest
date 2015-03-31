@@ -27,6 +27,7 @@ Menu *Active;
 Dialogue *ActiveDia;
 int state,lastState,timeTillNextDialogueInput;
 void GetInput();
+void MainMenu();
 
 int main( int argc, char* args[] )
 {
@@ -46,14 +47,7 @@ int main( int argc, char* args[] )
 	KeyButtons[PI_MovRight] = SDL_SCANCODE_RIGHT;
 	KeyButtons[PI_Select] = SDL_SCANCODE_A;
 	KeyButtons[PI_Back] = SDL_SCANCODE_S;
-	Active = makeMenuFromFile("yaml/menus/main.yml",500,100,50);
-	printf("-----------\n");
-	//createMenu(500,300,200,50,"yaml/menus/main.yml");
-	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
-	
-	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
-	
-	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
+	MainMenu();
 	while(1)
 		{
 			
@@ -110,6 +104,15 @@ void GetInput()
 	for(i=0;i<PI_NULL;i++){
 		inputs[i]=state[KeyButtons[i]];
 	}
+}
 
-
+void MainMenu(){
+	Active = makeMenuFromFile("yaml/menus/main.yml",500,100,50);
+	printf("-----------\n");
+	//createMenu(500,300,200,50,"yaml/menus/main.yml");
+	SpawnImage(-400,0,2888,1426,1,"Images/background.png");
+	
+	SpawnImage(0,0,143,241,2,"Images/Damara_talksprite.png");
+	
+	 Mix_PlayMusic(LoadMusic("music/RustServantTest.wav"),-1);
 }
