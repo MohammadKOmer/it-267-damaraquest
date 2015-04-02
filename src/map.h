@@ -1,6 +1,9 @@
 #ifndef _MAP_
 #define _MAP_
 #include "entity.h"
+#include <SDL_image.h>
+#define MAXMAPS   16
+static TileMapList[MAXMAPS];
 /*contains map and tile manager*/
 typedef struct Tile_Object{
 	Sprite *sprite;      
@@ -21,8 +24,8 @@ typedef struct Tilemap_Object{
 	int numTiles;
 }TileMap;
 
-TileMap* ReadTileMapFromFile();
-TileMap* CreateTileMapAroundTexture():
-void FreeTileMap();
-
+TileMap* ReadTileMapFromFile(char* fileName);
+TileMap* CreateTileMapAroundBox(int x, int y, int w, int h);
+void FreeTileMap(TileMap* t);
+void createTilemap(int w, int h, char* fileName);
 #endif
