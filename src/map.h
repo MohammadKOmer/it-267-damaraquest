@@ -21,8 +21,8 @@ typedef struct Tilemap_Object{
 	int numTiles;
 }TileMap;
 
-TileMap* ReadTileMapFromFile(char* fileName);
+
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h);
 void FreeTileMap(TileMap* t);
-void createTilemap(int w, int h, char* fileName);
+TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefile, char* fileName);
 #endif
