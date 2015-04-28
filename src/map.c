@@ -2,7 +2,7 @@
 #include "map.h"
 
 
-static TileMap TileMapList[MAXMAPS];
+static TileMap* TileMapList[MAXMAPS];
 
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h){
 	int hf,wf,i,j,e;
@@ -40,11 +40,22 @@ TileMap* CreateTileMapAroundBox(int x, int y, int w, int h){
 			newMap->tiles[e].shown=1;
 		}
 	}
+
 	return newMap;
 	
 }
+void FreeTile(Tile *t){
+	FreeSprite(t->sprite);
+	free(t);	
+}
 void FreeTileMap(TileMap* t){
+	int i;
+	for(i=0;i<t->numTiles;i++){
+		FreeTile(&(t->tiles[i]));
 
+	}
+	free(t);
+	t=NULL;
 }
 
 
@@ -89,7 +100,4 @@ TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefil
 		fclose(lvl);
 	}
 	return newMap;
-	
-	
-
 }
