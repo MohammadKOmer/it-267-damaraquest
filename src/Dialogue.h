@@ -7,17 +7,17 @@
 #include "text.h"
 #include "menu.h"
 #include "entity.h"
+#include "map.h"
 
 
 typedef struct Dialogue_T{
 	Entity* sprite;
-	Entity** dilogueBox;
+	TileMap* map;
 	GString Text;
 	GameText* GText;
 	GString fileName;
 	SDL_Color color;
 	Dialogue_T* next;
-	int dilogueBoxes;
 }Dialogue;
 
 

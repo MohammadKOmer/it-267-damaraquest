@@ -3,7 +3,7 @@
 #include "entity.h"
 #include <SDL_image.h>
 #define MAXMAPS   16
-//static TileMapList[MAXMAPS];
+
 /*contains map and tile manager*/
 typedef struct Tile_Object{
 	Sprite *sprite;      
@@ -12,7 +12,7 @@ typedef struct Tile_Object{
 
 	int shown;                /*if 1 then it will be rendered when it is on screen*/
 	int frame;                /*current frame to render*/
-
+	int frameR;
 	Point size;               /*mirrors the sprite width and height*/
 	Point origin;             /*offset of the center from s*/
 }Tile;
