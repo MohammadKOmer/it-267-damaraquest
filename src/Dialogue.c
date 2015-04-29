@@ -66,7 +66,7 @@ Dialogue* makeDialogueFromFile(char* fileName){
 	return head;
 }
 Dialogue* DisplayDialogue(Dialogue* d){
-	int w, h,hf,wf,i,j,x,y,iter; //dialogue sections are 16x16
+	int w, h,x,y,iter; //dialogue sections are 16x16
 	d->GText=AddText(d->Text,16,250,d->color,d->Text.len);
 	SDL_QueryTexture(d->GText->texture, NULL, NULL, &w, &h);
 	

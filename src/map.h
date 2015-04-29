@@ -19,6 +19,7 @@ typedef struct Tile_Object{
 typedef struct Tilemap_Object{
 	Tile* tiles;
 	int numTiles;
+	int used;
 }TileMap;
 
 

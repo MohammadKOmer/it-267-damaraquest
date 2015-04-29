@@ -2,13 +2,28 @@
 #include "map.h"
 
 
-static TileMap* TileMapList[MAXMAPS];
-
+TileMap* TileMapList[MAXMAPS];
+int numMaps;
+void InitTileList()
+{
+	int i;
+	numMaps = 0;
+	for(i = 0;i < MAXMAPS; i++)
+	{
+		TileMapList[i]->tiles=NULL;
+		TileMapList[i]->used=0;
+	}
+}
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h){
 	int hf,wf,i,j,e;
-	TileMap* newMap=(TileMap*) malloc(sizeof(TileMap));
+	TileMap* newMap;
 	hf=(h+15)/16+1;
 	wf=(w+15)/16+1;
+	for(e=0;e<MAXMAPS;e++){
+		if(TileMapList[e]->used==0){
+			newMap=TileMapList[e];
+		}
+	}
 	newMap->numTiles=wf*hf;
 	
 	newMap->tiles=(Tile*)malloc(sizeof(Tile)*newMap->numTiles);
@@ -67,8 +82,11 @@ TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefil
 
 	lvl = fopen(fileName,"r"); /*checking to see if we are editing a level or
 									making a new one */
-
-	newMap = (TileMap*)malloc(sizeof(TileMap));
+	for(e=0;e<MAXMAPS;e++){
+		if(TileMapList[e]->used==0){
+			newMap=TileMapList[e];
+		}
+	}
 	newMap->numTiles=w*h;
 	newMap->tiles=(Tile*)malloc(sizeof(Tile)*newMap->numTiles);
 	if( lvl == NULL )
