@@ -3,7 +3,7 @@
 #include <math.h>
 #include "entity.h"
 #include "graphics.h"
-
+#include "map.h"
 
 #define   RPixel_W    256
 #define   RPixel_H    256
@@ -15,7 +15,7 @@ extern SDL_Rect Camera;
 extern Uint32 NOW;
 extern Entity *ThePlayer;
 extern SDL_Renderer * renderer;
-
+extern TileMap* TileMapList[MAXMAPS];
 Entity EntityList[MAXENTITIES];
 int NumEnts = 0;
 int EnemyPresent;
@@ -41,8 +41,15 @@ void InitEntityList()
 
 void DrawEntities()
 {
-	int i=0,k=0;
+	int i=0,k=0,e=0;
 	for( k =0; k<10;k++){
+		for(e=0;e<MAXMAPS;e++){
+			if(TileMapList[e]->used==0){
+				if(TileMapList[e]->tiles[0].sprite->layer==k){
+					drawMap(TileMapList[e]);
+				}
+			}
+		}
 		for(i = 0;i < MAXENTITIES;i++)
 		{
 			if(EntityList[i].used == 1)

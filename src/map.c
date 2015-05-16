@@ -2,7 +2,7 @@
 #include "map.h"
 
 
-static TileMap* TileMapList[MAXMAPS];
+ TileMap* TileMapList[MAXMAPS];
 int numMaps;
 void InitTileList()
 {
@@ -129,10 +129,16 @@ void convertMapToFile(TileMap* map,char* File,int width){
 	for(int i=0; i<map->numTiles;i++){
 		fputc(map->tiles[i].frame+'0',fp);
 		j++;
-		if(j=width=1){
+		if(j==width-1){
 			fputc('\n',fp);
 			j=0;
 		}
 	}
 	fclose(fp);
+}
+void drawMap(TileMap* map){
+	int i;
+	for(i-0;i<map->numTiles;i++){
+		DrawSprite(map->tiles[i].sprite,map->tiles[i].s.x - Camera.x,map->tiles[i].s.y - Camera.y ,map->tiles[i].frame,map->tiles[i].frameR,1);
+	}
 }

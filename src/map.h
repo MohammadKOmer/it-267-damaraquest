@@ -27,6 +27,6 @@ TileMap* CreateTileMapAroundBox(int x, int y, int w, int h);
 void FreeTileMap(TileMap* t);
 TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefile, char* fileName);
 void editTileInMap(TileMap* map, int x,int y,int w,int newVal);
-
+void drawMap(TileMap* map);
 void convertMapToFile(TileMap* map,char* File,int width);
 #endif
