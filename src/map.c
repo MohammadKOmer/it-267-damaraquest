@@ -17,47 +17,51 @@ void InitTileList()
 }
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h){
 	int hf,wf,i,j,e;
-	TileMap newMap;
+	TileMap *newMap;
 	hf=(h+15)/16+1;
 	wf=(w+15)/16+1;
 	for(e=0;e<MAXMAPS;e++){
 		if(TileMapList[e].used==0){
-			newMap=TileMapList[e];
+			newMap=&TileMapList[e];
+			newMap->used=1;
+			break;
 		}
 	}
-	newMap.numTiles=wf*hf;
+	newMap->numTiles=wf*hf;
 	
-	newMap.tiles=(Tile*)malloc(sizeof(Tile)*newMap.numTiles);
+	//newMap->tiles=(Tile*)malloc(sizeof(Tile)*newMap->numTiles);
+		Tile* tiles= new Tile[newMap->numTiles];
+	newMap->tiles=tiles;
 	e=0;
 	for(i=0;i<hf;i++){
 		for(j=0;j<wf;j++){
-			newMap.tiles[e].sprite = LoadSprite("images/dialogBox.png",16,16,8);
+			newMap->tiles[e].sprite = LoadSprite("images/dialogBox.png",16,16,8);
 			if(j==0){
-				newMap.tiles[e].frame=0;
+				newMap->tiles[e].frame=0;
 			}else if(j==wf-1){
-				newMap.tiles[e].frame=2;
+				newMap->tiles[e].frame=2;
 			}else{
-				newMap.tiles[e].frame=1;
+				newMap->tiles[e].frame=1;
 			}
 
 			if(i==0){
-				newMap.tiles[e].frameR=0;
+				newMap->tiles[e].frameR=0;
 			}else if(i==hf-1){
-				newMap.tiles[e].frameR=2;
+				newMap->tiles[e].frameR=2;
 			}else{
-				newMap.tiles[e].frameR=1;
+				newMap->tiles[e].frameR=1;
 			}
-			newMap.tiles[e].size.x=16;
-			newMap.tiles[e].size.y=16;
-			newMap.tiles[e].s.x=x+16*i;
-			newMap.tiles[e].s.y=y+16*j;
-			newMap.tiles[e].origin.x=16/2;
-			newMap.tiles[e].origin.y=16/2;
-			newMap.tiles[e].shown=1;
+			newMap->tiles[e].size.x=16;
+			newMap->tiles[e].size.y=16;
+			newMap->tiles[e].s.x=x+16*i;
+			newMap->tiles[e].s.y=y+16*j;
+			newMap->tiles[e].origin.x=16/2;
+			newMap->tiles[e].origin.y=16/2;
+			newMap->tiles[e].shown=1;
 		}
 	}
 
-	return &newMap;
+	return newMap;
 	
 }
 void FreeTile(Tile *t){
@@ -70,8 +74,10 @@ void FreeTileMap(TileMap* t){
 		FreeTile(&(t->tiles[i]));
 
 	}
-	free(t);
-	t=NULL;
+
+	t->used=0;
+	t->tiles=NULL;
+	t->numTiles=0;
 }
 
 
@@ -79,17 +85,22 @@ void FreeTileMap(TileMap* t){
 TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefile, char* fileName){
 	FILE  *lvl;
 	int creating,i,j,e,sq;
-	TileMap newMap;
+	TileMap* newMap;
 
 	lvl = fopen(fileName,"r"); /*checking to see if we are editing a level or
 									making a new one */
 	for(e=0;e<MAXMAPS;e++){
 		if(TileMapList[e].used==0){
-			newMap=TileMapList[e];
+			newMap=&TileMapList[e];
+			newMap->used=1;
+			break;
 		}
 	}
-	newMap.numTiles=w*h;
-	newMap.tiles=(Tile*)malloc(sizeof(Tile)*newMap.numTiles);
+	newMap->numTiles=w*h;
+	//newMap->tiles=(Tile*)malloc(sizeof(Tile)*newMap->numTiles);
+	Tile* tiles= new Tile[newMap->numTiles];
+	newMap->tiles=tiles;
+	
 	if( lvl == NULL )
 	{
 		printf("Creating new level\n");
@@ -103,22 +114,22 @@ TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefil
 				if(sq==0){
 					continue;
 				}
-				newMap.tiles[e].frame=sq;
-				newMap.tiles[e].size.x=tileSize;
-				newMap.tiles[e].size.y=tileSize;
-				newMap.tiles[e].s.x=x+tileSize*i;
-				newMap.tiles[e].s.y=y+tileSize*j;
-				newMap.tiles[e].origin.x=tileSize/2;
-				newMap.tiles[e].origin.y=tileSize/2;
-				newMap.tiles[e].sprite=LoadSprite(spritefile,tileSize,tileSize,1);
-				newMap.tiles[e].shown=0;
+				newMap->tiles[e].frame=sq;
+				newMap->tiles[e].size.x=tileSize;
+				newMap->tiles[e].size.y=tileSize;
+				newMap->tiles[e].s.x=x+tileSize*i;
+				newMap->tiles[e].s.y=y+tileSize*j;
+				newMap->tiles[e].origin.x=tileSize/2;
+				newMap->tiles[e].origin.y=tileSize/2;
+				newMap->tiles[e].sprite=LoadSprite(spritefile,tileSize,tileSize,1);
+				newMap->tiles[e].shown=0;
 				e++;
 			}
 			fgetc(lvl); /*to eat up newlines*/
 		}
 		fclose(lvl);
 	}
-	return &newMap;
+	return newMap;
 }
 void editTileInMap(TileMap* map, int x,int y,int w,int newVal){
 	map->tiles[w*x+y].frame=newVal;
@@ -138,8 +149,8 @@ void convertMapToFile(TileMap* map,char* File,int width){
 	fclose(fp);
 }
 void drawMap(TileMap* map){
-	int i;
-	for(i-0;i<map->numTiles;i++){
+	int i=0;
+	for(i=0;i<map->numTiles;i++){
 		DrawSprite(map->tiles[i].sprite,map->tiles[i].s.x - Camera.x,map->tiles[i].s.y - Camera.y ,map->tiles[i].frame,map->tiles[i].frameR,1);
 	}
 }

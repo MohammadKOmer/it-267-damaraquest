@@ -44,11 +44,11 @@ void DrawEntities()
 	int i=0,k=0,e=0;
 	for( k =0; k<10;k++){
 		for(e=0;e<MAXMAPS;e++){
-		if(TileMapList[e].used==1){
-				if(!TileMapList[e].tiles[0].sprite){
-						continue;
-					}
-				if(TileMapList[e].tiles[0].sprite->layer==k){
+			if(TileMapList[e].used==1){
+				if(!TileMapList[e].tiles->sprite){
+					continue;
+				}
+				if(TileMapList[e].tiles->sprite->layer==k){
 					drawMap(&TileMapList[e]);
 				}
 			}
@@ -69,7 +69,7 @@ void DrawEntities()
 			}
 		}
 	}
-	
+
 }
 
 
@@ -90,61 +90,61 @@ void ThinkEntities()
 					EntityList[i].think(&EntityList[i]);
 					EntityList[i].NextThink = NOW + EntityList[i].ThinkRate;
 				}
-					
+
 			}
 			if(EntityList[i].Unit_Type==EC_AI){
 				EnemyPresent++;
-			
+
 			}
 		}
 	}
 }
 void UpdateEntities()
 {
-  int i;
-  int checked = 0;
-  for(i = 0;i < MAXENTITIES;i++)
-  {
-      if(EntityList[i].used)
-      {
-		     checked++;
-        if(EntityList[i].NextUpdate < NOW)
-        {
-          if(EntityList[i].update != NULL)
-          {
-            EntityList[i].update(&EntityList[i]);
-            EntityList[i].NextUpdate = NOW + EntityList[i].UpdateRate;
-          }
+	int i;
+	int checked = 0;
+	for(i = 0;i < MAXENTITIES;i++)
+	{
+		if(EntityList[i].used)
+		{
+			checked++;
+			if(EntityList[i].NextUpdate < NOW)
+			{
+				if(EntityList[i].update != NULL)
+				{
+					EntityList[i].update(&EntityList[i]);
+					EntityList[i].NextUpdate = NOW + EntityList[i].UpdateRate;
+				}
 
-        }
-		
-      }
-  }
-  
+			}
+
+		}
+	}
+
 } 
 void DrawEntity(Entity *ent)
 {
 
-    if(ent->sprite != NULL){
+	if(ent->sprite != NULL){
 
 		DrawSprite(ent->sprite,ent->s.x - Camera.x,ent->s.y - Camera.y ,ent->frame,ent->frameR,ent->drawScale);
-	  if(ent->sprite->Animating!=0){
-		  ent->timeSinceLastAnim++;
-		  if(ent->sprite->curAnim.delays[ent->curAnimIndex] < ent->timeSinceLastAnim){
-			  ent->curAnimIndex++;
-			 
-			  if(ent->curAnimIndex== ent->sprite->curAnim.length){
-				
-				  ent->curAnimIndex=0;
-			  }
-			  ent->frame=ent->sprite->curAnim.frames[ent->curAnimIndex];
-			   ent->drawScale=ent->sprite->curAnim.scales[ent->curAnimIndex];
-			  ent->timeSinceLastAnim=0;
-		  }
-	  }
-	
+		if(ent->sprite->Animating!=0){
+			ent->timeSinceLastAnim++;
+			if(ent->sprite->curAnim.delays[ent->curAnimIndex] < ent->timeSinceLastAnim){
+				ent->curAnimIndex++;
+
+				if(ent->curAnimIndex== ent->sprite->curAnim.length){
+
+					ent->curAnimIndex=0;
+				}
+				ent->frame=ent->sprite->curAnim.frames[ent->curAnimIndex];
+				ent->drawScale=ent->sprite->curAnim.scales[ent->curAnimIndex];
+				ent->timeSinceLastAnim=0;
+			}
+		}
+
 	}
-  
+
 }
 Entity *NewEntity()
 {
@@ -173,7 +173,7 @@ void FreeEntity(Entity *ent)
 	ent->think = NULL;
 	ent->target = NULL;
 	ent->update = NULL;
-	
+
 }
 
 
@@ -200,16 +200,16 @@ int GetFace(Entity *self)
 
 void UpdateEntityPosition(Entity *self)
 {
-	
+
 }
 
 
 
 int OnScreen(Entity *self)
 {
-  if(((self->s.x + self->size.x) >= Camera.x)&&(self->s.x <= (Camera.x + Camera.w))&&((self->s.y + self->size.y) >= Camera.y)&&(self->s.y <= (Camera.y + Camera.h)))
-    return 1;
-  return 0;
+	if(((self->s.x + self->size.x) >= Camera.x)&&(self->s.x <= (Camera.x + Camera.w))&&((self->s.y + self->size.y) >= Camera.y)&&(self->s.y <= (Camera.y + Camera.h)))
+		return 1;
+	return 0;
 }
 
 Entity*  SpawnSquare(int x,int y, int frame)
@@ -219,7 +219,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	int scales[4]={1,2,2,1};
 	Entity *newent = NULL;
 	newent = NewEntity();
-	
+
 	if(newent == NULL)
 	{
 		printf( "Unable to generate player entity; %s",SDL_GetError());
@@ -232,7 +232,7 @@ Entity*  SpawnSquare(int x,int y, int frame)
 	newent->size.y = 256;
 	AddAnimToSprite(newent->sprite,frames,delays,scales,4,0,"testing");
 	newent->fcount=9;
-	
+
 	newent->Unit_Type = ET_WorldEnt;
 
 	newent->healthmax = 100;
@@ -262,10 +262,10 @@ Entity*  SpawnSquare(int x,int y, int frame)
 }
 Entity*  SpawnImage(int x,int y, int w, int h,int scale, char* file)
 {
-	
+
 	Entity *newent = NULL;
 	newent = NewEntity();
-	
+
 	if(newent == NULL)
 	{
 		printf( "Unable to generate player entity; %s",SDL_GetError());
@@ -298,13 +298,13 @@ void SwitchAnim(Entity *ent,char *AnimName){
 	ent->frame=ent->sprite->AnimList[i].frames[0];
 	ent->frameR=ent->sprite->AnimList[i].row;
 	ent->sprite->curAnim=ent->sprite->AnimList[i];
-	
-	
+
+
 }
 
 Entity* SpawnDamara(int x, int y){
 	/*this should really be done through def files but im late on this anyway */
-	
+
 	Entity *newent = NULL;
 	newent = NewEntity();
 	newent->sprite = LoadSprite("images/damara.png",100,130,8);

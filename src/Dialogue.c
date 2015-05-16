@@ -89,7 +89,6 @@ Dialogue* NextDialogue(Dialogue* d){
 }
 
 void freeDialogue(Dialogue* d){
-	int i;
 	FreeTileMap(d->map);
 	FreeEntity(d->sprite);
 	RemoveText(d->GText);
