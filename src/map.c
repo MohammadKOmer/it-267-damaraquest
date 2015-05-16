@@ -122,3 +122,17 @@ TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefil
 void editTileInMap(TileMap* map, int x,int y,int w,int newVal){
 	map->tiles[w*x+y].frame=newVal;
 }
+void convertMapToFile(TileMap* map,char* File,int width){
+	int i,j;
+	FILE* fp; 
+	fp = fopen(File,"w+");
+	for(int i=0; i<map->numTiles;i++){
+		fputc(map->tiles[i].frame+'0',fp);
+		j++;
+		if(j=width=1){
+			fputc('\n',fp);
+			j=0;
+		}
+	}
+	fclose(fp);
+}

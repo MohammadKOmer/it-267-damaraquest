@@ -19,7 +19,7 @@ extern int timeTillNextDialogueInput;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 640;
 enum GAMESTATES   {G_GAMEPLAY,G_MENU,G_DIALOGUE,G_CREATING};
-enum PlayerInputs {PI_0,PI_1,PI_2,PI_3,PI_4,PI_5,PI_6,PI_7,PI_8,PI_9,
+enum PlayerInputs {PI_0,PI_1,PI_2,PI_3,PI_4,PI_5,PI_6,PI_7,PI_8,PI_9,PI_ESC,
 	PI_MovDown,PI_MovLeft,PI_MovUpLeft,PI_MovUp,PI_MovRight,PI_Select,PI_Back,PI_NULL};
 enum ButtonStates {Up,Pressed,Released,Down};
 Uint32 KeyButtons[PI_NULL]; /* okay thats clever*/
@@ -70,6 +70,7 @@ int main( int argc, char* argv[] )
 	KeyButtons[PI_7]=SDL_SCANCODE_7;
 	KeyButtons[PI_8]=SDL_SCANCODE_8;
 	KeyButtons[PI_9]=SDL_SCANCODE_9;
+	KeyButtons[PI_ESC]=SDL_SCANCODE_ESCAPE;
 	if(state!=G_CREATING)MainMenu();
 	while(1)
 		{
@@ -116,6 +117,8 @@ int main( int argc, char* argv[] )
 					}if(inputs[PI_MovRight]){
 						if(x<19)x++;
 					}
+					Camera.x=x*128-Camera.w/2;
+					Camera.y=y*128-Camera.h/2;
 					timeTillNextDialogueInput=SDL_GetTicks()+300;
 				}
 
@@ -156,6 +159,10 @@ int main( int argc, char* argv[] )
 				}else if(inputs[PI_9]){
 
 					editTileInMap(EditingMap,  x, y,20, 9);
+				}
+				if(inputs[PI_ESC]){
+					convertMapToFile(EditingMap,editingFile,20);
+					break;
 				}
 
 			}
