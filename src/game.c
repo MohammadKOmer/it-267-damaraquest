@@ -18,7 +18,7 @@ extern int timeTillNextDialogueInput;
 /*Screen dimension constants*/
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 640;
-enum GAMESTATES   {G_GAMEPLAY,G_MENU,G_DIALOGUE,G_CREATING};
+enum GAMESTATES   {G_GAMEPLAY,G_MENU,G_DIALOGUE,G_CREATING,G_EXPLORING};
 enum PlayerInputs {PI_0,PI_1,PI_2,PI_3,PI_4,PI_5,PI_6,PI_7,PI_8,PI_9,PI_ESC,
 	PI_MovDown,PI_MovLeft,PI_MovUpLeft,PI_MovUp,PI_MovRight,PI_Select,PI_Back,PI_NULL};
 enum ButtonStates {Up,Pressed,Released,Down};
@@ -44,16 +44,18 @@ int main( int argc, char* argv[] )
 	InitEntityList();
 	Init_Text();
 	InitSound();
+	InitTileList();
 	for(i = 1;i < argc;i++)
 	{
 		if(strcmp("-mapedit",argv[i])== 0)
 		{
 			state = G_CREATING;
 			editingFile=argv[i+1];
+			EditingMap=createTilemap(0, 0, 20, 20, 128,  "Images/TestSprite.png",  editingFile);
 		}
 
 	}
-	EditingMap=createTilemap(0, 0, 20, 20, 128,  "Images/TestSprite.png",  editingFile);
+	
 	KeyButtons[PI_MovDown] = SDL_SCANCODE_DOWN;
 	KeyButtons[PI_MovLeft] = SDL_SCANCODE_LEFT;
 	KeyButtons[PI_MovUp] = SDL_SCANCODE_UP;
@@ -164,6 +166,8 @@ int main( int argc, char* argv[] )
 					convertMapToFile(EditingMap,editingFile,20);
 					break;
 				}
+
+			}else if(state==G_EXPLORING){
 
 			}
 			else{

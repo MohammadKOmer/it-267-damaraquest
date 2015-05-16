@@ -21,7 +21,7 @@ typedef struct Tilemap_Object{
 	int numTiles;
 	int used;
 }TileMap;
-
+void InitTileList();
 
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h);
 void FreeTileMap(TileMap* t);

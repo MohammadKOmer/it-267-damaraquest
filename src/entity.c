@@ -15,7 +15,7 @@ extern SDL_Rect Camera;
 extern Uint32 NOW;
 extern Entity *ThePlayer;
 extern SDL_Renderer * renderer;
-extern TileMap* TileMapList[MAXMAPS];
+extern TileMap TileMapList[MAXMAPS];
 Entity EntityList[MAXENTITIES];
 int NumEnts = 0;
 int EnemyPresent;
@@ -44,9 +44,12 @@ void DrawEntities()
 	int i=0,k=0,e=0;
 	for( k =0; k<10;k++){
 		for(e=0;e<MAXMAPS;e++){
-			if(TileMapList[e]->used==0){
-				if(TileMapList[e]->tiles[0].sprite->layer==k){
-					drawMap(TileMapList[e]);
+		if(TileMapList[e].used==1){
+				if(!TileMapList[e].tiles[0].sprite){
+						continue;
+					}
+				if(TileMapList[e].tiles[0].sprite->layer==k){
+					drawMap(&TileMapList[e]);
 				}
 			}
 		}
@@ -299,3 +302,57 @@ void SwitchAnim(Entity *ent,char *AnimName){
 	
 }
 
+Entity* SpawnDamara(int x, int y){
+	/*this should really be done through def files but im late on this anyway */
+	
+	Entity *newent = NULL;
+	newent = NewEntity();
+	newent->sprite = LoadSprite("images/damara.png",100,130,8);
+	newent->sprite->Animating=1;
+	newent->size.x = 128;
+	newent->size.y = 128;
+	newent->Unit_Type = ET_WorldEnt;
+
+	newent->healthmax = 100;
+	newent->health = 100;
+
+	newent->frate = 30;
+	newent->state = ST_IDLE;
+	newent->EntClass=EC_STATIC;
+
+
+	newent->s.x = x;
+	newent->s.y = y;
+
+	newent->maxspeed = 10;
+	newent->movespeed = 0;
+
+	newent->Boundingbox.x = 0;
+	newent->Boundingbox.y = 0;
+	newent->Boundingbox.w = 128;
+	newent->Boundingbox.h = 128;  
+	newent->origin.x = 64;
+	newent->origin.y = 64;
+	int forwardidle[1]={0};
+	int delay[1]={30};
+	int scaleone[1]={1};
+	AddAnimToSprite(newent->sprite,forwardidle ,delay,scaleone,1,0,"forwardIdle");
+	int rightidle[1]={1};
+	AddAnimToSprite(newent->sprite,rightidle ,delay,scaleone,1,0,"rightIdle");
+	int leftidle[1]={2};
+	AddAnimToSprite(newent->sprite,leftidle ,delay,scaleone,1,0,"leftIdle");
+	int backIdle[1]={3};
+	AddAnimToSprite(newent->sprite,backIdle ,delay,scaleone,1,0,"backIdle");
+	int scaletwo[2]={1,1};
+	int delays[2]={30,30};
+
+	int forwardWalk[2]={4,5};
+	AddAnimToSprite(newent->sprite,forwardWalk ,delays,scaletwo,1,0,"forwardWalk");
+	int rightWalk[2]={6,7};
+	AddAnimToSprite(newent->sprite,rightWalk ,delays,scaletwo,1,0,"rightWalk");
+	int leftWalk[2]={8,9};
+	AddAnimToSprite(newent->sprite,leftWalk ,delays,scaletwo,1,0,"leftWalk");
+	int backWalk[2]={10,11};
+	AddAnimToSprite(newent->sprite,backWalk ,delays,scaletwo,1,0,"backWalk");
+	return newent;
+}
