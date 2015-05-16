@@ -18,8 +18,9 @@ extern int timeTillNextDialogueInput;
 /*Screen dimension constants*/
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 640;
-enum GAMESTATES   {G_GAMEPLAY,G_MENU,G_DIALOGUE};
-enum PlayerInputs {PI_MovDown,PI_MovLeft,PI_MovUpLeft,PI_MovUp,PI_MovRight,PI_Select,PI_Back,PI_NULL};
+enum GAMESTATES   {G_GAMEPLAY,G_MENU,G_DIALOGUE,G_CREATING};
+enum PlayerInputs {PI_0,PI_1,PI_2,PI_3,PI_4,PI_5,PI_6,PI_7,PI_8,PI_9,
+	PI_MovDown,PI_MovLeft,PI_MovUpLeft,PI_MovUp,PI_MovRight,PI_Select,PI_Back,PI_NULL};
 enum ButtonStates {Up,Pressed,Released,Down};
 Uint32 KeyButtons[PI_NULL]; /* okay thats clever*/
 Uint8 inputs[PI_NULL];
@@ -29,8 +30,11 @@ int state,lastState,timeTillNextDialogueInput;
 void GetInput();
 void MainMenu();
 
-int main( int argc, char* args[] )
+int main( int argc, char* argv[] )
 {
+	int i,x,y;
+	TileMap* EditingMap;
+	char* editingFile;
 	 state=G_MENU;
 	 lastState=state;
 	int timeTillNextMenuInput=0;
@@ -40,14 +44,33 @@ int main( int argc, char* args[] )
 	InitEntityList();
 	Init_Text();
 	InitSound();
+	for(i = 1;i < argc;i++)
+	{
+		if(strcmp("-mapedit",argv[i])== 0)
+		{
+			state = G_CREATING;
+			editingFile=argv[i+1];
+		}
 
+	}
+	EditingMap=createTilemap(0, 0, 20, 20, 128,  "Images/TestSprite.png",  editingFile);
 	KeyButtons[PI_MovDown] = SDL_SCANCODE_DOWN;
 	KeyButtons[PI_MovLeft] = SDL_SCANCODE_LEFT;
 	KeyButtons[PI_MovUp] = SDL_SCANCODE_UP;
 	KeyButtons[PI_MovRight] = SDL_SCANCODE_RIGHT;
 	KeyButtons[PI_Select] = SDL_SCANCODE_A;
 	KeyButtons[PI_Back] = SDL_SCANCODE_S;
-	MainMenu();
+	KeyButtons[PI_0]=SDL_SCANCODE_0;
+	KeyButtons[PI_1]=SDL_SCANCODE_1;
+	KeyButtons[PI_2]=SDL_SCANCODE_2;
+	KeyButtons[PI_3]=SDL_SCANCODE_3;
+	KeyButtons[PI_4]=SDL_SCANCODE_4;
+	KeyButtons[PI_5]=SDL_SCANCODE_5;
+	KeyButtons[PI_6]=SDL_SCANCODE_6;
+	KeyButtons[PI_7]=SDL_SCANCODE_7;
+	KeyButtons[PI_8]=SDL_SCANCODE_8;
+	KeyButtons[PI_9]=SDL_SCANCODE_9;
+	if(state!=G_CREATING)MainMenu();
 	while(1)
 		{
 			
@@ -81,6 +104,60 @@ int main( int argc, char* args[] )
 						}
 					}
 				}
+			}else if(state==G_CREATING){
+				if(timeTillNextDialogueInput<SDL_GetTicks()){
+					if(inputs[PI_MovUp]){
+						
+						if(y>0)y--;
+					}if(inputs[PI_MovDown]){
+						if(y<19)y++;
+					}if(inputs[PI_MovLeft]){
+						if(x>0)x--;
+					}if(inputs[PI_MovRight]){
+						if(x<19)x++;
+					}
+					timeTillNextDialogueInput=SDL_GetTicks()+300;
+				}
+
+				if(inputs[PI_0]){
+					editTileInMap(EditingMap,  x, y,20, 0);
+				}
+				else if(inputs[PI_1]){
+
+					editTileInMap(EditingMap,  x, y,20, 1);
+				}
+				else if(inputs[PI_2]){
+
+					editTileInMap(EditingMap,  x, y,20, 2);
+				}
+				else if(inputs[PI_3]){
+
+					editTileInMap(EditingMap,  x, y,20, 3);
+				}
+				else if(inputs[PI_4]){
+
+					editTileInMap(EditingMap,  x, y,20, 4);
+				}
+				else if(inputs[PI_5]){
+
+					editTileInMap(EditingMap,  x, y,20, 5);
+				}
+				else if(inputs[PI_6]){
+
+					editTileInMap(EditingMap,  x, y,20, 6);
+				}
+				else if(inputs[PI_7]){
+
+					editTileInMap(EditingMap,  x, y,20, 7);
+				}
+				else if(inputs[PI_8]){
+
+					editTileInMap(EditingMap,  x, y,20, 8);
+				}else if(inputs[PI_9]){
+
+					editTileInMap(EditingMap,  x, y,20, 9);
+				}
+
 			}
 			else{
 				ThinkEntities();

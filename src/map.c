@@ -2,7 +2,7 @@
 #include "map.h"
 
 
-TileMap* TileMapList[MAXMAPS];
+static TileMap* TileMapList[MAXMAPS];
 int numMaps;
 void InitTileList()
 {
@@ -118,4 +118,7 @@ TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefil
 		fclose(lvl);
 	}
 	return newMap;
+}
+void editTileInMap(TileMap* map, int x,int y,int w,int newVal){
+	map->tiles[w*x+y].frame=newVal;
 }

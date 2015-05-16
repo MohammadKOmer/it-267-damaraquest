@@ -26,4 +26,5 @@ typedef struct Tilemap_Object{
 TileMap* CreateTileMapAroundBox(int x, int y, int w, int h);
 void FreeTileMap(TileMap* t);
 TileMap* createTilemap(int x, int y, int w, int h, int tileSize, char* spritefile, char* fileName);
+void editTileInMap(TileMap* map, int x,int y,int w,int newVal);
 #endif
